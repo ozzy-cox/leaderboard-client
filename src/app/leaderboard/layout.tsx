@@ -8,22 +8,16 @@ export default function LeaderboardLayout({ children }: { children: React.ReactN
     <Container fixed>
       <Appbar />
       <Container>
-        <Grid container spacing={3}>
-          <Grid xs={6}>
-            <div>1</div>
-          </Grid>
+        <Grid container>
           <Grid xs>
             <div>asdfasfd</div>
           </Grid>
-          <Grid xs={6}>
-            <div>asdfasfd</div>
-          </Grid>
+          <Grid xs={9}>{children}</Grid>
           <Grid xs>
             <div>asdfasfd</div>
           </Grid>
         </Grid>
       </Container>
-      {children}
     </Container>
   )
 }

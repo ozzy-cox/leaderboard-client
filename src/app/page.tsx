@@ -2,5 +2,5 @@
 import { Container } from '@mui/material'
 
 export default function Home() {
-  return <Container fixed>asdfasdf</Container>
+  return <Container fixed></Container>
 }

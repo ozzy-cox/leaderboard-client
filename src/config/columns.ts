@@ -11,9 +11,14 @@ const columnHelper = createColumnHelper<User>()
 
 export const columns = [
   columnHelper.accessor('ranking', {
+    id: 'ranking',
     cell: (props) => props.row.index + 1
   }),
-  columnHelper.accessor('username', {}),
-  columnHelper.accessor('country', {}),
-  columnHelper.accessor('money', {})
+  columnHelper.accessor('username', {
+    id: 'username'
+  }),
+  columnHelper.accessor('country', {
+    id: 'country'
+  }),
+  columnHelper.accessor('money', { id: 'money' })
 ]

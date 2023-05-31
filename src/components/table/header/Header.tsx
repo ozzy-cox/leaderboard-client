@@ -7,7 +7,10 @@ import { TableInstanceContext } from '../table'
 export const Header = ({ headerGroups }: { headerGroups: HeaderGroup<User>[] }) => {
   const table = useContext(TableInstanceContext)
   return (
-    <thead>
+    <thead
+      style={{
+        textAlign: 'left'
+      }}>
       {headerGroups.map((headerGroup) => (
         <tr key={headerGroup.id}>
           {headerGroup.headers.map((header) => (

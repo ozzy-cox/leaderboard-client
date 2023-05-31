@@ -1,5 +1,13 @@
 import { User, columns as defaultColumns } from '@/config/columns'
-import { ColumnOrderState, Table, getCoreRowModel, useReactTable } from '@tanstack/react-table'
+import {
+  ColumnOrderState,
+  GroupingState,
+  Table,
+  getCoreRowModel,
+  getExpandedRowModel,
+  getGroupedRowModel,
+  useReactTable
+} from '@tanstack/react-table'
 import { useState } from 'react'
 
 export type TableInstance = {
@@ -10,10 +18,12 @@ export type TableInstance = {
     columnOrder: string[]
   ) => ColumnOrderState
   resetOrder: () => void
+  toggleGroupByCountry: () => void
 }
 
 export const useTable = ({ data }: { data: any[] }): TableInstance => {
   const [columns] = useState(() => [...defaultColumns])
+  const [grouping, setGrouping] = useState<GroupingState>([])
 
   const [columnOrder, setColumnOrder] = useState<ColumnOrderState>(
     columns.map((column) => column.id as string) //must start out with populated columnOrder so we can splice
@@ -25,8 +35,12 @@ export const useTable = ({ data }: { data: any[] }): TableInstance => {
     columns,
     getCoreRowModel: getCoreRowModel(),
     state: {
-      columnOrder
+      columnOrder,
+      grouping
     },
+    onGroupingChange: setGrouping,
+    getExpandedRowModel: getExpandedRowModel(),
+    getGroupedRowModel: getGroupedRowModel(),
     onColumnOrderChange: setColumnOrder
   })
 
@@ -43,5 +57,13 @@ export const useTable = ({ data }: { data: any[] }): TableInstance => {
     return [...columnOrder]
   }
 
-  return { core: table, reorderColumn, resetOrder }
+  const toggleGroupByCountry = () => {
+    if (grouping.includes('country')) {
+      setGrouping([])
+    } else {
+      setGrouping(['country'])
+    }
+  }
+
+  return { core: table, reorderColumn, resetOrder, toggleGroupByCountry }
 }

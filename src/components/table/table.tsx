@@ -1,6 +1,6 @@
 'use client'
 import { createContext } from 'react'
-import { Body } from './Body'
+import { Body } from './body/Body'
 import { Header } from './header/Header'
 import { TableInstance, useTable } from './hooks/useTable'
 import { DndProvider } from 'react-dnd'
@@ -11,7 +11,7 @@ export const TableInstanceContext = createContext<TableInstance>({} as TableInst
 export const Table = ({ data }: { data: any }) => {
   const table = useTable({ data })
 
-  const { core, resetOrder } = table
+  const { core, resetOrder, toggleGroupByCountry } = table
 
   return (
     <DndProvider backend={HTML5Backend}>
@@ -19,9 +19,12 @@ export const Table = ({ data }: { data: any }) => {
         <button onClick={() => resetOrder()} className="border p-1">
           Reset Order
         </button>
-
-        <pre>{JSON.stringify(table.core.getState().columnOrder, null, 2)}</pre>
-        <table className="table-auto">
+        <button onClick={() => toggleGroupByCountry()} className="border p-1">
+          Group By Country
+        </button>
+        <table
+          className="w-3/4 mx-auto border-spacing-50 border-collapse 
+         border border-slate-700">
           <Header headerGroups={core.getHeaderGroups()} />
           <Body rows={core.getRowModel().rows} />
         </table>

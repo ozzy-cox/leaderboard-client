@@ -32,7 +32,11 @@ export const DraggableColumnHeader: FC<{
   })
 
   return (
-    <th ref={dropRef} colSpan={header.colSpan} style={{ opacity: isDragging ? 0.5 : 1 }}>
+    <th
+      className="hover:bg-sky-700"
+      ref={dropRef}
+      colSpan={header.colSpan}
+      style={{ opacity: isDragging ? 0.5 : 1, padding: 20 }}>
       <div ref={previewRef}>
         {header.isPlaceholder
           ? null

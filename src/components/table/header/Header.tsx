@@ -12,7 +12,11 @@ export const Header = ({ headerGroups }: { headerGroups: HeaderGroup<User>[] }) 
         textAlign: 'left'
       }}>
       {headerGroups.map((headerGroup) => (
-        <tr key={headerGroup.id}>
+        <tr
+          key={headerGroup.id}
+          style={{
+            height: 70
+          }}>
           {headerGroup.headers.map((header) => (
             <DraggableColumnHeader key={header.id} header={header} table={table} />
           ))}

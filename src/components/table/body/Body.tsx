@@ -6,9 +6,21 @@ export const Body = ({ rows }: { rows: Row<User>[] }) => {
   return (
     <tbody>
       {rows.map((row) => (
-        <tr key={row.id}>
+        <tr
+          key={row.id}
+          className="hover:bg-slate-700 bg-slate-800"
+          style={{
+            border: '2px solid black',
+            margin: 10,
+            height: 50
+          }}>
           {row.getVisibleCells().map((cell) => (
-            <td className=" border-slate-600" key={cell.id}>
+            <td
+              className="border-slate-600"
+              key={cell.id}
+              style={{
+                padding: 15
+              }}>
               {cell.getIsGrouped() ? (
                 // If it's a grouped cell, add an expander and row count
                 <>

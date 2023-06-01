@@ -24,7 +24,11 @@ export const Table = ({ data }: { data: any }) => {
         </button>
         <table
           className="w-3/4 mx-auto border-spacing-50 border-collapse 
-         border border-slate-700">
+         border border-slate-700 bg-slate-700"
+          style={{
+            borderSpacing: `15px`,
+            borderCollapse: 'collapse'
+          }}>
           <Header headerGroups={core.getHeaderGroups()} />
           <Body rows={core.getRowModel().rows} />
         </table>

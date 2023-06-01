@@ -10,7 +10,11 @@ export default async function LeaderboardLayout({ children }: { children: React.
   const dehydratedState = dehydrate(queryClient)
 
   return (
-    <div className="container mx-auto">
+    <div
+      className="container mx-auto bg-slate-900"
+      style={{
+        color: '#ececef'
+      }}>
       <Appbar />
       <Hydrate state={dehydratedState}>{children}</Hydrate>
     </div>

@@ -1,5 +1,6 @@
 import { User, columns as defaultColumns } from '@/config/columns'
 import {
+  ColumnFiltersState,
   ColumnOrderState,
   GroupingState,
   Table,
@@ -24,6 +25,7 @@ export type TableInstance = {
 export const useTable = ({ data }: { data: any[] }): TableInstance => {
   const [columns] = useState(() => [...defaultColumns])
   const [grouping, setGrouping] = useState<GroupingState>([])
+  const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
 
   const [columnOrder, setColumnOrder] = useState<ColumnOrderState>(
     columns.map((column) => column.id as string) //must start out with populated columnOrder so we can splice
@@ -36,8 +38,10 @@ export const useTable = ({ data }: { data: any[] }): TableInstance => {
     getCoreRowModel: getCoreRowModel(),
     state: {
       columnOrder,
-      grouping
+      grouping,
+      columnFilters
     },
+    onColumnFiltersChange: setColumnFilters,
     onGroupingChange: setGrouping,
     getExpandedRowModel: getExpandedRowModel(),
     getGroupedRowModel: getGroupedRowModel(),

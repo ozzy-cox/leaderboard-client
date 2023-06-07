@@ -1,6 +1,7 @@
 import { createColumnHelper } from '@tanstack/react-table'
 
 export type User = {
+  id: string
   money: number
   country: string
   username: string

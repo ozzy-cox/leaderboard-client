@@ -6,17 +6,25 @@ import { TableInstance, useTable } from './hooks/useTable'
 import { DndProvider } from 'react-dnd'
 import { HTML5Backend } from 'react-dnd-html5-backend'
 import { SearchBar } from './search/SearchBar'
-import { searchUsers } from '@/app/leaderboard/getLeaderboard'
+import { getUserPlacing, searchUsers } from '@/app/leaderboard/getLeaderboard'
 import { useQuery } from '@tanstack/react-query'
+import { Results } from './search/Results'
 
 export const TableInstanceContext = createContext<TableInstance>({} as TableInstance)
 
 export const Table = ({ data }: { data: any }) => {
   const [query, setQuery] = useState('')
+  const [selectedUserId, setSelectedUserId] = useState('')
 
   const { data: usersResult, isLoading } = useQuery({
     queryKey: ['search-users', query],
     queryFn: () => searchUsers(query)
+  })
+
+  const { data: userPlacing, refetch } = useQuery({
+    queryKey: ['user-placing', selectedUserId],
+    queryFn: () => getUserPlacing(selectedUserId),
+    enabled: selectedUserId !== ''
   })
 
   const table = useTable({ data })
@@ -26,6 +34,8 @@ export const Table = ({ data }: { data: any }) => {
   const handleSelection = (val: any) => {
     // TODO Select user and run the leaderboard query again
     setQuery(usersResult[val].username)
+    setSelectedUserId(usersResult[val].id)
+    refetch()
   }
 
   return (
@@ -54,6 +64,10 @@ export const Table = ({ data }: { data: any }) => {
           }}>
           <Header headerGroups={core.getHeaderGroups()} />
           <Body rows={core.getRowModel().rows} />
+        </table>
+        <table>
+          {selectedUserId}
+          <Results results={userPlacing?.range || []} />
         </table>
       </TableInstanceContext.Provider>
     </DndProvider>

@@ -10,3 +10,9 @@ export const searchUsers = async (query: string): Promise<any> => {
       .then((res) => res.data)
   }
 }
+
+export const getUserPlacing = async (user_id: string) => {
+  return axios
+    .get(`${process.env.NEXT_PUBLIC_API_HOST}/user-placing/?user_id=${user_id}`)
+    .then((res) => res.data)
+}

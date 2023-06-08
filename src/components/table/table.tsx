@@ -1,5 +1,5 @@
 'use client'
-import { SetStateAction, createContext, useState } from 'react'
+import { SetStateAction, createContext, useEffect, useState } from 'react'
 import { Body } from './body/Body'
 import { Header } from './header/Header'
 import { TableInstance, useTable } from './hooks/useTable'
@@ -28,7 +28,15 @@ export const Table = ({ data }: { data: any }) => {
   })
 
   const table = useTable({ data })
+  console.log(data)
+  console.log(userPlacing?.range)
 
+  const userPlacingTable = useTable({ data: userPlacing?.range || [] })
+  useEffect(() => {
+    console.log(userPlacingTable.core.getRowModel().rows)
+  }, [userPlacing])
+
+  // console.log(userPlacingTable.core.getRowModel().rows)
   const { core, resetOrder, toggleGroupByCountry } = table
 
   const handleSelection = (val: any) => {
@@ -64,6 +72,7 @@ export const Table = ({ data }: { data: any }) => {
           }}>
           <Header headerGroups={core.getHeaderGroups()} />
           <Body rows={core.getRowModel().rows} />
+          {userPlacing && <Body rows={userPlacingTable.core.getRowModel().rows}></Body>}
         </table>
         <table>
           {selectedUserId}

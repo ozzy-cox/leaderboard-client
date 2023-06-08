@@ -43,11 +43,6 @@ export const DraggableColumnHeader: FC<{
           : flexRender(header.column.columnDef.header, header.getContext())}
         <button ref={dragRef}>🟰</button>
       </div>
-      {header.column.getCanFilter() ? (
-        <div>
-          <input></input>
-        </div>
-      ) : null}
     </th>
   )
 }

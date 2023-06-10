@@ -65,26 +65,29 @@ export const Table = ({ data }: { data: any }) => {
         />
         <table
           className="w-3/4 mx-auto border-spacing-50 border-collapse 
-         order border-slate-700 bg-slate-700"
+         border border-slate-700 bg-slate-700"
           style={{
             borderSpacing: `15px`,
             borderCollapse: 'collapse'
           }}>
           <Header headerGroups={core.getHeaderGroups()} />
           <Body rows={core.getRowModel().rows} />
-
-          {userPlacing && (
-            <table
-              style={{
-                position: 'sticky',
-                bottom: 0,
-                backgroundColor: 'black',
-                border: '3px solid purple'
-              }}>
-              <Body rows={userPlacingTable.core.getRowModel().rows}></Body>
-            </table>
-          )}
         </table>
+        {userPlacing && (
+          <table
+            className="w-3/4 mx-auto border-spacing-50 border-collapse 
+         border border-slate-700 bg-slate-700"
+            style={{
+              position: 'sticky',
+              bottom: 0,
+              backgroundColor: 'black',
+              border: '3px solid purple'
+            }}>
+            <Body
+              rows={userPlacingTable.core.getRowModel().rows}
+              highlightedRowId={userPlacing.id}></Body>
+          </table>
+        )}
       </TableInstanceContext.Provider>
     </DndProvider>
   )

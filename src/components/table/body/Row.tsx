@@ -1,8 +1,8 @@
 import { User } from '@/config/columns'
 import { Row as TRow, flexRender } from '@tanstack/react-table'
-import React from 'react'
+import React, { CSSProperties } from 'react'
 
-export const Row = ({ row }: { row: TRow<User> }) => {
+export const Row = ({ row, style }: { row: TRow<User>; style?: CSSProperties }) => {
   return (
     <tr
       key={row.id}
@@ -10,7 +10,8 @@ export const Row = ({ row }: { row: TRow<User> }) => {
       style={{
         border: '2px solid black',
         margin: 10,
-        height: 50
+        height: 50,
+        ...style
       }}>
       {row.getVisibleCells().map((cell) => (
         <td
